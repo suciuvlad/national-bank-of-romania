@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = NationalBankOfRomania::VERSION
   gem.authors       = ["Vlad Suciu"]
   gem.email         = ["suciu.vlad@gmail.com"]
-  gem.description   = %q{TODO: This gem provides the ability to download the exchange rates from the National Bank of Romania and it is compatible with the money gem.}
-  gem.summary       = %q{TODO: This gem provides the ability to download the exchange rates from the National Bank of Romania and it is compatible with the money gem.}
+  gem.description   = %q{This gem provides the ability to download the exchange rates from the National Bank of Romania and it is compatible with the money gem.}
+  gem.summary       = %q{This gem provides the ability to download the exchange rates from the National Bank of Romania and it is compatible with the money gem.}
   gem.homepage      = ""
 
   gem.add_dependency "nokogiri", "~> 1.5.6"
