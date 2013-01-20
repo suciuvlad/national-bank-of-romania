@@ -1,4 +1,4 @@
-# NationalBankOfRomania
+# NationalBankOfRomania [![Gem Version](https://badge.fury.io/rb/national_bank_of_romania.png)](http://badge.fury.io/rb/national_bank_of_romania)
 
 
 This gem provides the ability to download the exchange rates from the National Bank of Romania and it is compatible with the [money gem](https://github.com/RubyMoney/money/).
