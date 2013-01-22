@@ -50,13 +50,47 @@ describe "Bank" do
     bank2.should_not eq(bank3)
   end
 
-  it "should return the correct exchange rates using exchange" do
-    @bank.update_rates(@feed)
+  context "#exchange" do
+    it "calls 'exchange_with' with the correct params" do
+      @bank.update_rates(@feed)
 
-    NationalBankOfRomania::Bank::CURRENCIES.each do |currency|
-      subunit = Money::Currency.wrap(currency).subunit_to_unit.to_s.scan(/0/).count
-      value = BigDecimal.new(@exchange_rates["currencies"][currency].to_s).truncate(subunit.to_i).to_f
-      @bank.exchange(100, "RON", currency).to_f.should == value
+      from = Money.new(100, "RON")
+      to = Money::Currency.wrap("USD")
+      money = double(:fractional => 324, :currency => "USD")
+
+      @bank.should_receive(:exchange_with).with(from, to).and_return(money)
+      @bank.exchange(100, "RON", "USD")
+    end
+
+    it "exchanges currencies based on the base currency" do
+      @bank.update_rates(@feed)
+
+      @bank.exchange(100, "EGP", "MDL").to_f.should ===
+        @exchange_rates["mixed_currencies"]["EGP_TO_MDL"]
+      @bank.exchange(100, "EUR", "USD").to_f.should ===
+        @exchange_rates["mixed_currencies"]["EUR_TO_USD"]
+    end
+  end
+
+  context "#exchange_with" do
+    it "returns the same currency if the to_currency is the same" do
+      @bank.update_rates(@feed)
+      m1 = Money.new(1000, "RON")
+
+      @bank.exchange_with(m1, "RON").should == m1
+    end
+
+    it "returns the correct exchange rates" do
+      @bank.update_rates(@feed)
+      NationalBankOfRomania::Bank::CURRENCIES.each do |currency|
+        m1 = Money.new(100, "RON")
+        subunit = Money::Currency.wrap(currency).subunit_to_unit
+          .to_s.scan(/0/).count
+        value = BigDecimal.new(@exchange_rates["currencies"][currency].to_s)
+          .truncate(subunit.to_i).to_f
+
+        @bank.exchange_with(m1, currency).to_f.should == value
+      end
     end
   end
 
