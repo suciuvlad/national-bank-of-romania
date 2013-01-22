@@ -29,3 +29,6 @@ currencies:
   XAU: 175.6294
   XDR: 4.9900
   ZAR: 0.3697
+mixed_currencies:
+  EGP_TO_MDL: 1.83
+  EUR_TO_USD: 1.33
