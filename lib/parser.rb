@@ -19,7 +19,7 @@ module NationalBankOfRomania
     private
       def formatted_records
         @records.map do |row|
-          { currency: row.attribute("currency").value, value: row.text.to_f }
+          { :currency => row.attribute("currency").value, :value => row.text.to_f }
         end
       end
   end
