@@ -56,7 +56,7 @@ describe "Bank" do
 
       from = Money.new(100, "RON")
       to = Money::Currency.wrap("USD")
-      money = double(:fractional => 324, :currency => "USD")
+      money = double(:cents => 324, :currency => "USD")
 
       @bank.should_receive(:exchange_with).with(from, to).and_return(money)
       @bank.exchange(100, "RON", "USD")

@@ -33,11 +33,11 @@ module NationalBankOfRomania
       end
       _to_currency_  = Money::Currency.wrap(to_currency)
 
-      fractional = BigDecimal.new(from.fractional.to_s) /
+      cents = BigDecimal.new(from.cents.to_s) /
         (BigDecimal.new(from.currency.subunit_to_unit.to_s) /
          BigDecimal.new(_to_currency_.subunit_to_unit.to_s))
 
-      ex = fractional * BigDecimal.new(rate.to_s)
+      ex = cents * BigDecimal.new(rate.to_s)
       ex = ex.to_f
       ex = if block_given?
               yield ex
