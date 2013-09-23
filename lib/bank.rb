@@ -2,7 +2,7 @@ require "money"
 module NationalBankOfRomania
 
   class Bank < ::Money::Bank::VariableExchange
-    attr_accessor :last_updated
+    attr_accessor :last_updated, :rates_updated_at
 
     RATES_URL = "http://www.bnro.ro/nbrfxrates.xml"
     CURRENCIES = %w(AED AUD BGN BRL CAD CHF CNY CZK DKK EGP EUR GBP HUF INR JPY
@@ -18,8 +18,10 @@ module NationalBankOfRomania
         add_rate("RON", rate[:currency], rate[:value])
       end
 
+
       add_rate("RON", "RON", 1)
       @last_updated = Time.now
+      @rates_updated_at = Time.parse(parser.date(path_to_file))
     end
 
     def exchange_with(from, to_currency)

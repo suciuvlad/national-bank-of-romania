@@ -50,6 +50,11 @@ describe "Bank" do
     bank2.should_not eq(bank3)
   end
 
+  it "should set rates_updated_at when the rates are updated" do
+    @bank.update_rates(@feed)
+    @bank.rates_updated_at.should eq(Time.parse('2013-01-17'))
+  end
+
   context "#exchange" do
     it "calls 'exchange_with' with the correct params" do
       @bank.update_rates(@feed)

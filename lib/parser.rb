@@ -10,10 +10,17 @@ module NationalBankOfRomania
     end
 
     def records(cache)
+      @records = doc(cache).root.elements[1].elements[2].elements
+      formatted_records
+    end
+
+    def date(cache)
+      date = doc(cache).root.elements[0].elements[1].children[0].text
+    end
+
+    def doc(cache)
       source = !!cache ? cache : url
       doc = Nokogiri::XML(open(source))
-      @records = doc.root.elements[1].elements[2].elements
-      formatted_records
     end
 
     private
